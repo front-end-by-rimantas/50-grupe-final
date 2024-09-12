@@ -1,9 +1,21 @@
 import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import { env } from './env.js';
 import { apiRouter } from './router/api.js';
 
-const app = express();
-const port = 5020;
+const corsOptions = {
+    credentials: true,
+    origin: 'http://localhost:' + env.CLIENT_PORT,
+};
+const helmetOptions = {
+    crossOriginResourcePolicy: false,
+};
 
+const app = express();
+
+app.use(cors(corsOptions));
+app.use(helmet(helmetOptions));
 app.use('/api', apiRouter);
 
 app.all('*', (req, res) => {
@@ -22,6 +34,6 @@ app.use((err, req, res, next) => {
     return res.status(500).send('Something broke!');
 });
 
-app.listen(port, () => {
-    console.log('Turizmo serveris: http://localhost:' + port);
+app.listen(env.SERVER_PORT, () => {
+    console.log('Turizmo serveris: http://localhost:' + env.SERVER_PORT);
 });
