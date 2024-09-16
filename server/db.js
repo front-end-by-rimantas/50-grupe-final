@@ -6,6 +6,7 @@ const dbOptions = {
     password: '',
     database: '50gr_turizmas',
 };
+
 export let connection = null;
 
 try {
