@@ -28,6 +28,8 @@
     - username -> ne per trumpas ir ne per ilgas
     - password -> ne per trumpas ir ne per ilgas
 
+# -----------------------------------------------------
+
 9. i DB:USERS lentele irasyti formoje pateiktus duomenis
 
 10. grazinamas atsakymas klientui:
