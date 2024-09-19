@@ -23,6 +23,6 @@ setInterval(async () => {
             console.log('Nepavyko prisijungti prie DB programos... gal pamirsai isijungti XAMMP?');
         }
     } else {
-        console.log('conn: ok');
+        // console.log('conn: ok');
     }
 }, 5000);

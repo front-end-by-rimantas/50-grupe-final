@@ -28,8 +28,6 @@
     - username -> ne per trumpas ir ne per ilgas
     - password -> ne per trumpas ir ne per ilgas
 
-# -----------------------------------------------------
-
 9. i DB:USERS lentele irasyti formoje pateiktus duomenis
 
 10. grazinamas atsakymas klientui:
@@ -37,8 +35,10 @@
     - pavyko uzregistruoti
     - nepavyko uzregistruoti
 
+# -----------------------------------------------------
+
 11. klientas gauna rezultata
 
 12. klientas atvaizduoja pranesima:
-    - pavyko uzsiregistruoti
-    - nepavyko uzsiregistruoti
+    -   pavyko uzsiregistruoti
+    -   nepavyko uzsiregistruoti
