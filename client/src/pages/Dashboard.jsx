@@ -1,9 +1,11 @@
 
+import { useContext } from "react";
 import { Footer } from "../components/footer/Footer";
 import { Header } from "../components/header/Header";
+import { GlobalContext } from "../context/GlobalContext";
 
 export function Dashboard() {
-    const isLoggedIn = false;
+    const { isLoggedIn } = useContext(GlobalContext);
 
     return (
         <>
