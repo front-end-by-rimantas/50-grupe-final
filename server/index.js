@@ -22,6 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 app.use(helmet(helmetOptions));
 
+// cookie middleware
+
 app.use('/api', apiRouter);
 
 app.all('*', (req, res) => {

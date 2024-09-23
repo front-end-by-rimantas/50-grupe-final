@@ -2,8 +2,11 @@ import { connection } from '../../db.js';
 import express from 'express'
 import { isValidPassword, isValidUsername } from '../../lib/isValid.js';
 
+const tokenLength = 20;
+
 export const loginAPIrouter = express.Router();
 
+loginAPIrouter.get('/', getLogin);
 loginAPIrouter.post('/', postLogin);
 
 loginAPIrouter.use((req, res) => {
@@ -12,6 +15,27 @@ loginAPIrouter.use((req, res) => {
         data: 'Toks HTTP metodas /api/login nepalaikomas',
     });
 });
+
+async function getLogin(req, res) {
+    const cookies = req
+        .headers
+        .cookie
+        .split(';')
+        .map(s => s.trim().split('='))
+        .reduce((total, item) => ({ ...total, [item[0]]: item[1] }), {});
+
+    console.log(cookies.loginToken);
+
+    // 1) jei nera loginToken cookie
+    // 2) jei nera string
+    // 3) jei nera 20 simboliu ilgio (zr. tokenLength)
+    // 4) SELECT is DB, jei masyve yra ne 1 objektas
+    // 5) ar vis dar galioja (expire)
+
+    return res.json({
+        isLoggedIn: true,
+    });
+}
 
 async function postLogin(req, res) {
     if (typeof req.body !== 'object'
@@ -80,7 +104,7 @@ async function postLogin(req, res) {
     const abc = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let token = '';
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < tokenLength; i++) {
         token += abc[Math.floor(Math.random() * abc.length)];
     }
 
