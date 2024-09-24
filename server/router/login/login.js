@@ -1,5 +1,6 @@
+import express from 'express';
 import { connection } from '../../db.js';
-import express from 'express'
+import { env } from '../../env.js';
 import { isValidPassword, isValidUsername } from '../../lib/isValid.js';
 
 const tokenLength = 20;
@@ -17,23 +18,8 @@ loginAPIrouter.use((req, res) => {
 });
 
 async function getLogin(req, res) {
-    const cookies = req
-        .headers
-        .cookie
-        .split(';')
-        .map(s => s.trim().split('='))
-        .reduce((total, item) => ({ ...total, [item[0]]: item[1] }), {});
-
-    console.log(cookies.loginToken);
-
-    // 1) jei nera loginToken cookie
-    // 2) jei nera string
-    // 3) jei nera 20 simboliu ilgio (zr. tokenLength)
-    // 4) SELECT is DB, jei masyve yra ne 1 objektas
-    // 5) ar vis dar galioja (expire)
-
     return res.json({
-        isLoggedIn: true,
+        isLoggedIn: req.user.isLoggedIn,
     });
 }
 
@@ -129,7 +115,7 @@ async function postLogin(req, res) {
         'loginToken=' + token,
         'domain=localhost',
         'path=/',
-        'max-age=3600',
+        'max-age=' + env.COOKIE_MAX_AGE,
         // 'Secure',
         'SameSite=Lax',
         'HttpOnly',

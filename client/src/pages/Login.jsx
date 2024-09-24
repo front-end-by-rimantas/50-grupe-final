@@ -1,4 +1,3 @@
-
 import { useContext, useState } from "react";
 import { Footer } from "../components/footer/Footer";
 import { Header } from "../components/header/Header";
@@ -7,15 +6,18 @@ import { GlobalContext } from "../context/GlobalContext";
 
 export function Login() {
     const { changeLoginStatus } = useContext(GlobalContext);
+    const { VITE_MODE, VITE_USERNAME, VITE_PASSWORD } = import.meta.env;
+    const initialUsername = VITE_MODE === 'dev' ? (VITE_USERNAME ?? 'admin') : '';
+    const initialPassword = VITE_MODE === 'dev' ? (VITE_PASSWORD ?? 'adminadminadmin') : '';
 
     const minUsernameLength = 3;
     const maxUsernameLength = 20;
     const minPasswordLength = 12;
     const maxPasswordLength = 100;
 
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useState(initialUsername);
     const [usernameError, setUsernameError] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState(initialPassword);
     const [passwordError, setPasswordError] = useState('');
     const [isFormValidated, setIsFormValidated] = useState(false);
     const [apiResponse, setApiResponse] = useState(null);
@@ -91,7 +93,7 @@ export function Login() {
                             <input value={password} onChange={e => setPassword(e.target.value)}
                                 type="password" id="password" placeholder="Password"
                                 className={'form-control ' + (isFormValidated ? passwordError ? 'is-invalid' : 'is-valid' : '')} />
-                            <label htmlFor="password">Spaltažodis</label>
+                            <label htmlFor="password">Spalvažodis</label>
                             {passwordError && <p className="invalid-feedback">{passwordError}</p>}
                         </div>
 
