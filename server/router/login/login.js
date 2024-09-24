@@ -21,6 +21,7 @@ async function getLogin(req, res) {
     return res.json({
         isLoggedIn: req.user.isLoggedIn,
         role: req.user.role,
+        username: req.user.username,
     });
 }
 
@@ -128,6 +129,7 @@ async function postLogin(req, res) {
             status: 'success',
             msg: 'Buvo sekmingai prisijungta',
             isLoggedIn: true,
+            username: userData.username,
             role: userData.role,
         });
 }
