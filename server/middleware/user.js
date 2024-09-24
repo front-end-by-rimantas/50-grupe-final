@@ -17,6 +17,7 @@ export async function userDetails(req, res, next) {
             const sql = `
                 SELECT
                     users.username,
+                    users.role,
                     users.created_at AS user_created_at,
                     tokens.created_at AS token_created_at
                 FROM tokens
@@ -27,7 +28,7 @@ export async function userDetails(req, res, next) {
 
             if (selectResult.length === 1) {
                 req.user.isLoggedIn = true;
-                req.user.role = 'user';
+                req.user.role = selectResult[0].role;
                 req.user.username = selectResult[0].username;
             }
         } catch (error) {

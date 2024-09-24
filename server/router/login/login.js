@@ -20,6 +20,7 @@ loginAPIrouter.use((req, res) => {
 async function getLogin(req, res) {
     return res.json({
         isLoggedIn: req.user.isLoggedIn,
+        role: req.user.role,
     });
 }
 
@@ -126,5 +127,7 @@ async function postLogin(req, res) {
         .json({
             status: 'success',
             msg: 'Buvo sekmingai prisijungta',
+            isLoggedIn: true,
+            role: userData.role,
         });
 }

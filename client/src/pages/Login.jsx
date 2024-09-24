@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 
 export function Login() {
-    const { changeLoginStatus } = useContext(GlobalContext);
+    const { changeLoginStatus, changeRole } = useContext(GlobalContext);
     const { VITE_MODE, VITE_USERNAME, VITE_PASSWORD } = import.meta.env;
     const initialUsername = VITE_MODE === 'dev' ? (VITE_USERNAME ?? 'admin') : '';
     const initialPassword = VITE_MODE === 'dev' ? (VITE_PASSWORD ?? 'adminadminadmin') : '';
@@ -62,7 +62,8 @@ export function Login() {
                     setApiResponse(data);
 
                     if (data.status === 'success') {
-                        changeLoginStatus(true);
+                        changeLoginStatus(data.isLoggedIn);
+                        changeRole(data.role);
                         navigate('/dashboard');
                     }
                 })
