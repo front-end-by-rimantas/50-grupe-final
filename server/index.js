@@ -27,6 +27,8 @@ app.use(helmet(helmetOptions));
 app.use(cookieParser);
 app.use(userDetails);
 
+app.use(express.static('public'));
+
 app.use('/api', apiRouter);
 
 app.all('*', (req, res) => {

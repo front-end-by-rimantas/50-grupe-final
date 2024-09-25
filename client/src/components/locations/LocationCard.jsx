@@ -1,7 +1,7 @@
 import logo from '../../assets/react.svg';
 
 /* eslint-disable react/prop-types */
-export function LocationCard({ img, name, address }) {
+export function LocationCard({ img, name, country }) {
     return (
         <div className="col">
             <div className="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
@@ -12,10 +12,10 @@ export function LocationCard({ img, name, address }) {
                         <li className="me-auto">
                             <img src={logo} alt="Logo" width="32" height="32" className="rounded-circle border border-white" />
                         </li>
-                        {/* <li className="d-flex align-items-center me-3">
+                        <li className="d-flex align-items-center me-3">
                             <svg className="bi me-2" width="1em" height="1em"><use xlinkHref="#geo-fill"></use></svg>
-                            <small>{address.country}</small>
-                        </li> */}
+                            <small>{country}</small>
+                        </li>
                         <li className="d-flex align-items-center">
                             <svg className="bi me-2" width="1em" height="1em"><use xlinkHref="#calendar3"></use></svg>
                             <small>3d</small>

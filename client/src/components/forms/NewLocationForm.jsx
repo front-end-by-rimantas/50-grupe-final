@@ -13,29 +13,23 @@ export function NewLocationForm() {
     const [isFormValidated, setIsFormValidated] = useState(false);
     const [apiResponse, setApiResponse] = useState(null);
 
+    function isValid(str) {
+        return typeof str === 'string' && str.length > 0;
+    }
+
     function submitForm(e) {
         e.preventDefault();
 
         setIsFormValidated(true);
 
-        let usernameError = '';
-        // if (username.length < minUsernameLength) {
-        //     usernameError = `Slapyvardis yra per trumpas, turi būti minimum ${minUsernameLength} simbolių`;
-        // } else if (username.length > maxUsernameLength) {
-        //     usernameError = `Slapyvardis yra per ilgas, turi būti maximum ${maxUsernameLength} simbolių`;
-        // }
-        setUsernameError(usernameError);
+        setNameError(isValid(name) ? '' : 'Trūksta vietos/objekto pavadinimo');
+        setImgError(isValid(img) ? '' : 'Trūksta nuorodos');
+        setCountryError(isValid(country) ? '' : 'Trūksta šalies pavadinimo');
+        setCityError(isValid(city) ? '' : 'Trūksta miesto pavadinimo');
 
-        let passwordError = '';
-        // if (password.length < minPasswordLength) {
-        //     passwordError = `Slaptažodis yra per trumpas, turi būti minimum ${minPasswordLength} simbolių`;
-        // } else if (password.length > maxPasswordLength) {
-        //     passwordError = `Slaptažodis yra per ilgas, turi būti maximum ${maxPasswordLength} simbolių`;
-        // }
-        setPasswordError(passwordError);
 
-        if (!usernameError && !passwordError) {
-            fetch('http://localhost:5020/api/locations/new', {
+        if (!nameError && !imgError && !countryError && !cityError) {
+            fetch('http://localhost:5020/api/locations', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
