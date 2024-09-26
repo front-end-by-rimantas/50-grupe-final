@@ -1,12 +1,29 @@
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Footer } from "../components/footer/Footer";
 import { Header } from "../components/header/Header";
 import { GlobalContext } from "../context/GlobalContext";
 import { Link } from "react-router-dom";
+import { PublicLocationsList } from "../components/locations/PublicLocationsList";
 
 export function Dashboard() {
-    const { isLoggedIn } = useContext(GlobalContext);
+    const { isLoggedIn, role, likedLocations } = useContext(GlobalContext);
+    const [locations, setLocations] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5020/api/locations')
+            .then(res => res.json())
+            .then(obj => {
+                if (typeof obj !== 'object') {
+                    throw new Error('Is serverio atejo ne objektas');
+                } else {
+                    setLocations(obj.data);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }, []);
 
     return (
         <>
@@ -21,7 +38,11 @@ export function Dashboard() {
                                     <h1>Dashboard</h1>
                                     <Link to='/locations/new' className="btn btn-primary">+ Nauja lokacija</Link>
                                 </div>
-                                <p>sita puslapi mato tik prisijunge vartotojai</p>
+                                {
+                                    role === 'user' &&
+                                    <PublicLocationsList
+                                        locations={locations.filter(obj => likedLocations.includes(obj.id))} />
+                                }
                             </div>
                         </div>
                     </section>

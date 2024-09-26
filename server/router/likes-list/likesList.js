@@ -11,12 +11,13 @@ likesListRouter.get('/', async (req, res) => {
         });
     }
 
+    let list = [];
+
     try {
         const sql = 'SELECT location_id FROM likes WHERE user_id = ?;';
         const [selectResult] = await connection.execute(sql, [req.user.id]);
 
-        console.log(selectResult);
-
+        list = selectResult.map(obj => obj.location_id);
     } catch (error) {
         console.log(error);
 
@@ -28,6 +29,6 @@ likesListRouter.get('/', async (req, res) => {
 
     return res.json({
         status: 'success',
-        list: [],
+        list,
     });
 });
