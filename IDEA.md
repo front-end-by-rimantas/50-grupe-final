@@ -71,3 +71,5 @@ Neregistruoti vartotojai gali matyti visas lankytinas vietas, tiesiog negali pla
 -   other:
     -   cookies
     -   localStorage????
+
+## Pratesti kita karta... 👀
